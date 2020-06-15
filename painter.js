@@ -348,7 +348,7 @@ function identifyMotion(){
 			r.push(arc / dis)
 		}
 
-		let curveConstant = 1
+		let curveConstant = 1.2
 		for(i = 0; i < r.length; i++){
 			if(r[i] > curveConstant && angle[i] > 0){
 				let total = 0
