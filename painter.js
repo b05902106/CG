@@ -278,7 +278,7 @@ function identifyMotion(){
 		for(i = 0; i < segment.length-1; i++){
 			let dis = Math.sqrt((segment[i][0] - segment[i+1][1])**2 + (segment[i][1] - segment[i+1][1])**2)
 			// console.log(dis)
-			if(Math.abs(segment[i][2] - segment[i+1][2]) <= 3){
+			if(samplePoints.length > 20 && Math.abs(segment[i][2] - segment[i+1][2]) <= 3){
 				drop_idx.push(i)
 			}
 		}
@@ -298,7 +298,7 @@ function identifyMotion(){
 
 		// find colinear segments
 		let flag = 1
-		while(flag == 1){
+		while(flag == 1 && segment.length > 20){
 			drop_idx = []
 			for(i = 1; i < segment.length-1; i++){
 				let a = [segment[i][0]-segment[i-1][0], segment[i][1]-segment[i-1][1]]
@@ -440,6 +440,12 @@ function identifyMotion(){
 					(classify[i] == 5 && classify[i+1] == 5) || (classify[i] == 7 && classify[i+1] == 6) ||
 					(classify[i] == 7 && classify[i+1] == 7) || (classify[i] == 6 && classify[i+1] == 6) ||
 					(classify[i] == 6 && classify[i+1] == 5) || (classify[i] == 6 && classify[i+1] == 7)){
+				if(segment[i+1][1] <= height){
+					motions.push(1)
+				}
+				else motions.push(2)
+			}
+			else if((classify[i] == 1 && classify[i+1] == 8)){
 				if(segment[i+1][1] <= height){
 					motions.push(1)
 				}
